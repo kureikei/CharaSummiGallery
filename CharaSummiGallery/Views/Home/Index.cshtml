@@ -1,0 +1,71 @@
+﻿@model CoreTweet.Core.ListedResponse<CoreTweet.Status>
+@{
+    ViewBag.Title = "キャラクター 一覧";
+}
+@functions {
+    string CreateStatus(CoreTweet.Status s)
+    {
+        var text = s.Text;
+        foreach (var u in s.Entities.Urls)
+        {
+            text = text.Replace(u.Url.AbsoluteUri, string.Format(@"<a href=""{0}"" target=""_blank"">{1}</a>", u.Url.AbsoluteUri, u.DisplayUrl));
+        }
+        return text.Replace("\n", "<br />");
+    }
+
+}
+
+<h1 class="title">@ViewBag.Title</h1>
+@if (Model == null)
+{
+    <hr />
+    <p class="text-danger">@ViewBag.Status</p>
+    <p>URL にツイートの ID を ?ids=123,456,789 のように付けてアクセスしてね。</p>
+    <p>ツイートの ID の部分: https://twitter.com/pronama/status/<strong>487491558627745792</strong></p>
+}
+else
+{
+    <ul class="bxslider">
+        @foreach (var s in Model)
+        {
+            <li>
+                @if (s.Entities.Media == null)
+                {
+                    <img src="http://placehold.it/350x350&text=No+media" width="350" height="350" />
+                }
+                else
+                {
+                    <img src="@s.Entities.Media.First().MediaUrl" />
+                }
+                <div class="media card">
+                    <img class="pull-left img-circle media-object" src="@s.User.ProfileImageUrl">
+                    <div class="media-body">
+                        <h4 class="name media-heading"><a href="https://twitter.com/@s.User.ScreenName" target="_blank">@s.User.Name</a></h4>
+                        <span class="screenname">@@@s.User.ScreenName</span>
+                        <p class="status">@Html.Raw(CreateStatus(s))</p>
+                        <a href="https://twitter.com/@s.User.ScreenName/status/@s.Id" target="_blank" class="datetime"><time>@s.CreatedAt.UtcDateTime.AddHours(9).ToString("yyyy/MM/dd HH:mm")</time></a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+    <div id="bx-pager">
+        @foreach (var s in Model.Select((v, i) => new { i, v }))
+        {
+            <a data-slide-index="@s.i" href=""><img class="img-circle pager" src="@s.v.User.ProfileImageUrl" /></a>
+        }
+    </div>
+}
+
+@section scripts {
+    <script>
+        $(function () {
+            $('.bxslider').bxSlider({
+                pagerCustom: '#bx-pager',
+                adaptiveHeight: true
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,90 @@
+﻿body {
+    padding-bottom: 20px;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', Osaka, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.bx-pager {
+    text-align: center;
+}
+
+img.pager {
+    margin: 2px;
+}
+
+.bxslider {
+}
+
+    .bxslider img {
+        margin: auto;
+    }
+
+h1.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+div.bx-viewport {
+    left: 0;
+}
+
+.media.card {
+    margin: 20px 50px;
+    font-size: 15px;
+}
+
+    .media.card h4 {
+        font-weight: bold;
+    }
+
+span.screenname {
+    color: #aaa;
+}
+
+p.status {
+    margin: 10px 0;
+}
+
+.datetime {
+    font-size: 12px;
+}
+
+a.datetime {
+    color: #aaa;
+    font-weight: normal;
+}
+
+    a.datetime:hover {
+        color: #aaa;
+    }
