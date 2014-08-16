@@ -58,15 +58,45 @@ else
     </div>
 }
 
+<div id="edit-group" style="display:none;">
+    <hr />
+    <div class="form-group">
+        <textarea id="list" rows="20" cols="100" style="max-width:100%;">
+            @if (Model != null)
+            {
+                foreach (var s in Model)
+                {
+@:https://twitter.com/@s.User.ScreenName/status/@s.Id
+                }
+            }
+        </textarea>
+    </div>
+    <div class="form-group">
+        <input type="button" id="edit-btn" class="btn btn-default" value="編集" />
+    </div>
+</div>
+
 @section scripts {
     <script>
         $(function () {
-            $('.bxslider').bxSlider({
+            $(".bxslider").bxSlider({
                 pagerCustom: '#bx-pager',
                 adaptiveHeight: true,
                 randomStart: true
+            })
+
+            $("#edit").click(function () {
+                $("#edit-group").show();
+            });
+
+            $("#edit-btn").click(function () {
+                var result = $("#list").val().match(/status\/(\d+)/g);
+                var ids = "";
+                if (result) {
+                    ids = result.join(",").replace(/status\//g, "");
+                }                
+                window.location.href = window.location.href.replace(/[\?#].*/, "") + "?ids=" + ids;
             });
         });
-
     </script>
 }
