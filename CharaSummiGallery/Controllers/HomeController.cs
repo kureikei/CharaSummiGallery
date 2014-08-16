@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 
@@ -17,7 +18,7 @@ namespace CharaSummiGallery.Controllers
             {
                 return View();
             }
-
+            
             try
             {
                 var tokens = Tokens.Create(
@@ -29,6 +30,7 @@ namespace CharaSummiGallery.Controllers
             }
             catch (Exception)
             {
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 ViewBag.Status = "ツイートの取得に失敗したよ";
                 return View();
             }
