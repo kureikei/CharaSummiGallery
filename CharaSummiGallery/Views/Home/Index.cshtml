@@ -62,14 +62,14 @@ else
     <hr />
     <div class="form-group">
         <textarea id="list" rows="20" cols="100" style="max-width:100%;">
-@if (Model != null)
-{
-foreach (var s in Model)
-{
+            @if (Model != null)
+            {
+                foreach (var s in Model)
+                {
 @:https://twitter.com/@s.User.ScreenName/status/@s.Id
-}
-}
-</textarea>
+                }
+            }
+        </textarea>
     </div>
     <div class="form-group">
         <input type="button" id="edit-btn" class="btn btn-default" value="編集" />
@@ -87,7 +87,6 @@ foreach (var s in Model)
 
             $("#edit").click(function () {
                 $("#edit-group").show();
-                return false;
             });
 
             $("#edit-btn").click(function () {
