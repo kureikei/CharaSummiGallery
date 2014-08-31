@@ -31,7 +31,22 @@ else
             <li>
                 @if (s.Entities.Media == null)
                 {
-                    <img src="http://placehold.it/350x350&text=No+media" width="350" height="350" />
+                    var exists = false;
+                    foreach (var u in s.Entities.Urls)
+                    {
+                        var html = (new WebClient()).DownloadString(u.ExpandedUrl);
+                        var url = new System.Text.RegularExpressions.Regex(@"<meta\s+?name=""twitter:image""\s+?value=""(?<url>.+?)"".*?>").Match(html).Groups["url"].Value;
+                        if (!string.IsNullOrEmpty(url))
+                        {
+                            <img src="@url" />
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists)
+                    {
+                        <img src="http://placehold.it/350x350&text=No+media" width="350" height="350" />
+                    }
                 }
                 else
                 {
