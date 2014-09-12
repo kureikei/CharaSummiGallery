@@ -97,7 +97,7 @@ foreach (var s in Model)
 @section scripts {
     <script>
         $(function () {
-            $(".bxslider").bxSlider({
+            var slider = $(".bxslider").bxSlider({
                 pagerCustom: '#bx-pager',
                 adaptiveHeight: true,
                 randomStart: true
@@ -115,6 +115,18 @@ foreach (var s in Model)
                     ids = result.join(",").replace(/status\//g, "");
                 }                
                 window.location.href = window.location.href.replace(/[\?#].*/, "") + "?ids=" + ids;
+            });
+
+            $('html').keydown(function (e) {
+                switch (e.which) {
+                    case 37: // <-
+                        slider.goToPrevSlide();
+                        break;
+                    case 39: // ->
+                        slider.goToNextSlide();
+                        break;
+                }
+                return false;
             });
         });
     </script>
